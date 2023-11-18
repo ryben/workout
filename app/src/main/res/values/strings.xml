@@ -11,4 +11,6 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="start_workouts">Start Workouts</string>
+    <string name="chat_here">Chat here</string>
+    <string name="send">Send</string>
 </resources>

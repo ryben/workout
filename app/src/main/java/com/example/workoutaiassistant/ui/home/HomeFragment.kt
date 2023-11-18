@@ -34,11 +34,12 @@ class HomeFragment : Fragment() {
             textView.text = it
         }
 
-        val recyclerView = binding.rvWorkouts
-        val adapter = RvAdapter(listOf("Push ups", "Pull ups", "Squats"))
-        recyclerView.adapter = adapter
+        val recyclerView = binding.rvChat
         recyclerView.layoutManager = LinearLayoutManager(context)
 
+        homeViewModel.chats.observe(viewLifecycleOwner) {
+            recyclerView.adapter = RvChatAdapter(it)
+        }
         return root
     }
 
