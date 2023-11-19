@@ -3,28 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="8dp"
+    android:layout_height="wrap_content"
     android:clipToPadding="false"
-    android:layout_height="wrap_content">
+    android:padding="16dp">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         app:cardBackgroundColor="#DCF1FF"
         app:cardCornerRadius="8dp"
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.8">
 
         <TextView
             android:id="@+id/text_chat"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:singleLine="false"
             android:textAlignment="textStart"
-            tools:text="I'm doing great!" />
+            tools:text="Just the usual meetings and project work. How about you?" />
 
     </com.google.android.material.card.MaterialCardView>
 
