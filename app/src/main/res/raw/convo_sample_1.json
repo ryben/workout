@@ -1,32 +1,34 @@
-[
+{
+  "chats": [
     {
-      "sender": "You",
+      "sender": "YOU",
       "message": "Hey, how are you doing today?",
       "timestamp": "2023-11-18T10:00:00"
     },
     {
-      "sender": "Friend",
+      "sender": "HIM",
       "message": "I'm doing well, thanks! How about you?",
       "timestamp": "2023-11-18T10:01:30"
     },
     {
-      "sender": "You",
+      "sender": "YOU",
       "message": "I'm good too. Just getting ready for work.",
       "timestamp": "2023-11-18T10:02:15"
     },
     {
-      "sender": "Friend",
+      "sender": "HIM",
       "message": "Oh nice. What's on your agenda today?",
       "timestamp": "2023-11-18T10:03:45"
     },
     {
-      "sender": "You",
+      "sender": "YOU",
       "message": "Just the usual meetings and project work. How about you?",
       "timestamp": "2023-11-18T10:04:30"
     },
     {
-      "sender": "Friend",
+      "sender": "HIM",
       "message": "I have a day off, so probably just going to relax.",
       "timestamp": "2023-11-18T10:05:00"
     }
-]
+  ]
+}

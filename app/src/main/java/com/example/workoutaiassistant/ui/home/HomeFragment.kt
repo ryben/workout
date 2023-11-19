@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.workoutaiassistant.R
 import com.example.workoutaiassistant.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -37,10 +39,24 @@ class HomeFragment : Fragment() {
         val recyclerView = binding.rvChat
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-        homeViewModel.chats.observe(viewLifecycleOwner) {
-            recyclerView.adapter = RvChatAdapter(it)
+        homeViewModel.conversation.observe(viewLifecycleOwner) {
+            recyclerView.adapter = RvChatAdapter(it.chats)
         }
+
+        applyDummyChats(homeViewModel)
+
         return root
+    }
+
+    fun applyDummyChats(homeViewModel: HomeViewModel) {
+        try {
+            val convoString = Util.readFromRaw(requireContext(), R.raw.convo_sample_1)
+            val conversation = Util.parseJsonConversation((convoString))
+            homeViewModel.updateConversation(conversation)
+        } catch (e: Exception) {
+            Toast.makeText(requireContext(), e.message, Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
     }
 
     override fun onDestroyView() {

@@ -61,13 +61,13 @@ class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHo
 class RvChatYouViewHolder(itemView: View) : ViewHolder(itemView) {
     private val textChat = itemView.findViewById<TextView>(R.id.text_chat)
     fun bind(chat: Chat) {
-        textChat.text = chat.text
+        textChat.text = chat.message
     }
 }
 
 class RvChatHimViewHolder(itemView: View) : ViewHolder(itemView) {
     private val textChat = itemView.findViewById<TextView>(R.id.text_chat)
     fun bind(chat: Chat) {
-        textChat.text = chat.text
+        textChat.text = chat.message
     }
 }
