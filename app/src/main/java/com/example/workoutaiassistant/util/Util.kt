@@ -1,7 +1,7 @@
-package com.example.workoutaiassistant.ui.home
+package com.example.workoutaiassistant.util
 
 import android.content.Context
-import com.example.workoutaiassistant.ui.home.model.Conversation
+import com.example.workoutaiassistant.data.model.Conversation
 import com.google.gson.Gson
 import java.io.BufferedReader
 

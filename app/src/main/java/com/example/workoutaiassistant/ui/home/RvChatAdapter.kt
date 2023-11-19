@@ -7,8 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.workoutaiassistant.R
-import com.example.workoutaiassistant.ui.home.model.Chat
-import com.example.workoutaiassistant.ui.home.model.Sender
+import com.example.workoutaiassistant.data.model.Chat
+import com.example.workoutaiassistant.data.model.Sender
 import java.lang.Exception
 
 class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHolder>() {

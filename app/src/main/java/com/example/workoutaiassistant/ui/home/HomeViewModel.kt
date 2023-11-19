@@ -3,7 +3,7 @@ package com.example.workoutaiassistant.ui.home
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.workoutaiassistant.ui.home.model.Conversation
+import com.example.workoutaiassistant.data.model.Conversation
 
 class HomeViewModel : ViewModel() {
 

@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutaiassistant.R
 import com.example.workoutaiassistant.databinding.FragmentHomeBinding
+import com.example.workoutaiassistant.util.Util
 
 class HomeFragment : Fragment() {
 
