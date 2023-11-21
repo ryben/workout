@@ -37,19 +37,19 @@ class HomeViewModel : ViewModel() {
 
     fun addHisChat(chat: String) {
         val convo = _conversation.value
-        convo?.chats?.add(Chat(chat, Sender.HIM, "12:00"))
+        convo?.chats?.add(Chat(chat, Sender.HIM))
         _conversation.value = convo
     }
     fun addMyChat(chat: String) {
         val convo = _conversation.value
-        convo?.chats?.add(Chat(chat, Sender.YOU, "12:00"))
+        convo?.chats?.add(Chat(chat, Sender.YOU))
     }
     fun sendMessage(promptText: String, role: Role = Role.USER): LiveData<OpenAIResponse> {
         val responseLiveData: MutableLiveData<OpenAIResponse> = MutableLiveData()
         val prompt = Prompt(
             Util.toJson(GptChatModelFactory.create(
                 promptText, role
-            )), 1000) // 150 is an example token limit
+            )), 150) // 150 is an example token limit
 
         RetrofitClient.instance.getResponse(prompt)
             .enqueue(object : Callback<OpenAIResponse> {

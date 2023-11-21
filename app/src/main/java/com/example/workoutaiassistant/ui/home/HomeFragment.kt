@@ -26,9 +26,7 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -50,7 +48,7 @@ class HomeFragment : Fragment() {
             if (message.isNotEmpty()) {
                 homeViewModel.addMyChat(message)
                 homeViewModel.sendMessage(message).observe(viewLifecycleOwner) {
-                    homeViewModel.addHisChat(it.choices.get(0).text.trim())
+                    homeViewModel.addHisChat(it.choices[0].text.trim())
                 }
                 binding.textChat.text.clear()
             }
@@ -62,11 +60,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
         homeViewModel.sendMessage(
-            Util.readFromRaw(requireContext(), R.raw.gpt_instructions),
-            Role.SYSTEM
+            Util.readFromRaw(requireContext(), R.raw.gpt_instructions), Role.SYSTEM
         ).observe(viewLifecycleOwner) {
             homeViewModel.addHisChat(it.choices.get(0).text.trim())
         }
