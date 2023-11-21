@@ -4,15 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.workoutaiassistant.data.model.Chat
 import com.example.workoutaiassistant.data.model.Conversation
-import com.example.workoutaiassistant.data.model.OpenAIResponse
-import com.example.workoutaiassistant.data.model.Prompt
-import com.example.workoutaiassistant.data.model.Sender
-import com.example.workoutaiassistant.data.network.GptChatModelFactory
+import com.example.workoutaiassistant.data.network.AiRequest
+import com.example.workoutaiassistant.data.network.AiResponse
+import com.example.workoutaiassistant.data.network.Chat
 import com.example.workoutaiassistant.data.network.RetrofitClient
 import com.example.workoutaiassistant.data.network.Role
-import com.example.workoutaiassistant.util.Util
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -31,40 +28,58 @@ class HomeViewModel : ViewModel() {
     }
     val conversation: LiveData<Conversation> = _conversation
 
-    fun setConversation(conversation: Conversation) {
-        _conversation.value = conversation
-    }
-
     fun addHisChat(chat: String) {
         val convo = _conversation.value
-        convo?.chats?.add(Chat(chat, Sender.HIM))
+        convo?.chats?.add(Chat(Role.ASSISTANT, chat))
         _conversation.value = convo
     }
+
     fun addMyChat(chat: String) {
         val convo = _conversation.value
-        convo?.chats?.add(Chat(chat, Sender.YOU))
+        convo?.chats?.add(Chat(Role.USER, chat))
+        _conversation.value = convo
     }
-    fun sendMessage(promptText: String, role: Role = Role.USER): LiveData<OpenAIResponse> {
-        val responseLiveData: MutableLiveData<OpenAIResponse> = MutableLiveData()
-        val prompt = Prompt(
-            Util.toJson(GptChatModelFactory.create(
-                promptText, role
-            )), 150) // 150 is an example token limit
 
-        RetrofitClient.instance.getResponse(prompt)
-            .enqueue(object : Callback<OpenAIResponse> {
+    fun addSystemChat(chat: String) {
+        val convo = _conversation.value
+        convo?.chats?.add(Chat(Role.SYSTEM, chat))
+        _conversation.value = convo
+    }
+
+    fun sendUserMessage(message: String): LiveData<AiResponse> {
+        return sendMessage(message, Role.USER)
+    }
+    fun sendSystemMessage(message: String): LiveData<AiResponse> {
+        return sendMessage(message, Role.SYSTEM)
+    }
+
+    private fun sendMessage(message: String, role: Role): LiveData<AiResponse> {
+        when (role) {
+            Role.USER -> addMyChat(message)
+            Role.SYSTEM -> addSystemChat(message)
+            Role.ASSISTANT -> addHisChat(message)
+        }
+
+        val responseLiveData: MutableLiveData<AiResponse> = MutableLiveData()
+        val request =
+            AiRequest(
+                "gpt-4-1106-preview", conversation.value!!.chats
+            )
+
+        RetrofitClient.instance.getResponse(request)
+            .enqueue(object : Callback<AiResponse> {
                 override fun onResponse(
-                    call: Call<OpenAIResponse>,
-                    response: Response<OpenAIResponse>
+                    call: Call<AiResponse>,
+                    response: Response<AiResponse>
                 ) {
                     if (response.isSuccessful) {
                         responseLiveData.value = response.body()
                     }
                 }
 
-                override fun onFailure(call: Call<OpenAIResponse>, t: Throwable) {
+                override fun onFailure(call: Call<AiResponse>, t: Throwable) {
                     // Handle failure
-                    Log.d("HomeViewModel", "Failed to get response from GPT")
+                    Log.d(this.javaClass.simpleName, "Failed to get response from GPT")
                 }
             })
 

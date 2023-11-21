@@ -7,15 +7,15 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.workoutaiassistant.R
-import com.example.workoutaiassistant.data.model.Chat
-import com.example.workoutaiassistant.data.model.Sender
-import java.lang.Exception
+import com.example.workoutaiassistant.data.network.Chat
+import com.example.workoutaiassistant.data.network.Role
 
 class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHolder>() {
 
     companion object {
         private const val CHAT_YOU = 0
         private const val CHAT_HIM = 1
+        private const val CHAT_OTHER = -1
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -38,9 +38,10 @@ class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHo
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (chats[position].sender) {
-            Sender.YOU -> CHAT_YOU
-            Sender.HIM -> CHAT_HIM
+        return when (chats[position].role) {
+            Role.USER -> CHAT_YOU
+            Role.ASSISTANT -> CHAT_HIM
+            else -> CHAT_OTHER
         }
     }
 
@@ -61,13 +62,13 @@ class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHo
 class RvChatYouViewHolder(itemView: View) : ViewHolder(itemView) {
     private val textChat = itemView.findViewById<TextView>(R.id.text_chat)
     fun bind(chat: Chat) {
-        textChat.text = chat.message
+        textChat.text = chat.content
     }
 }
 
 class RvChatHimViewHolder(itemView: View) : ViewHolder(itemView) {
     private val textChat = itemView.findViewById<TextView>(R.id.text_chat)
     fun bind(chat: Chat) {
-        textChat.text = chat.message
+        textChat.text = chat.content
     }
 }

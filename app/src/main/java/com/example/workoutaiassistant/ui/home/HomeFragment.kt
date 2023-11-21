@@ -40,15 +40,15 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(context)
 
         homeViewModel.conversation.observe(viewLifecycleOwner) {
-            recyclerView.adapter = RvChatAdapter(it.chats)
+            recyclerView.adapter =
+                RvChatAdapter(it.chats.filter { chat -> chat.role == Role.USER || chat.role == Role.ASSISTANT })
         }
 
         binding.btnSend.setOnClickListener {
             val message = binding.textChat.text.toString()
             if (message.isNotEmpty()) {
-                homeViewModel.addMyChat(message)
-                homeViewModel.sendMessage(message).observe(viewLifecycleOwner) {
-                    homeViewModel.addHisChat(it.choices[0].text.trim())
+                homeViewModel.sendUserMessage(message).observe(viewLifecycleOwner) {
+                    homeViewModel.addHisChat(it.choices[0].message.content.trim())
                 }
                 binding.textChat.text.clear()
             }
@@ -60,10 +60,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homeViewModel.sendMessage(
-            Util.readFromRaw(requireContext(), R.raw.gpt_instructions), Role.SYSTEM
+        // Provide initial instructions
+        homeViewModel.sendSystemMessage(
+            Util.readFromRaw(requireContext(), R.raw.gpt_instructions)
         ).observe(viewLifecycleOwner) {
-            homeViewModel.addHisChat(it.choices.get(0).text.trim())
+            homeViewModel.addHisChat(it.choices[0].message.content.trim())
         }
     }
 
