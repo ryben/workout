@@ -49,6 +49,7 @@ class HomeFragment : Fragment() {
             if (message.isNotEmpty()) {
                 homeViewModel.sendUserMessage(message).observe(viewLifecycleOwner) {
                     homeViewModel.addHisChat(it.choices[0].message.content.trim())
+                    recyclerView.smoothScrollToPosition((recyclerView.adapter?.itemCount ?: 0) - 1)
                 }
                 binding.textChat.text.clear()
             }
