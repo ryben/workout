@@ -63,10 +63,16 @@ class HomeFragment : Fragment() {
 
         // Provide initial instructions
         homeViewModel.sendSystemMessage(
-            Util.readFromRaw(requireContext(), R.raw.gpt_instructions)
+            getCustomInstructions()
         ).observe(viewLifecycleOwner) {
             homeViewModel.addHisChat(it.choices[0].message.content.trim())
         }
+    }
+
+    fun getCustomInstructions(): String {
+        val rawInstructions = Util.readFromRaw(requireContext(), R.raw.gpt_instructions)
+        val workout_format =  Util.readFromRaw(requireContext(), R.raw.workout_format)
+        return rawInstructions.replace("{workout_format}", workout_format)
     }
 
     override fun onDestroyView() {

@@ -1,0 +1,10 @@
+{
+  "message": "<assistant message here>",
+  "workouts" : [
+    {
+      "name": "",
+      "repetitions": 0,
+      "sets": 0
+    }
+  ]
+}
