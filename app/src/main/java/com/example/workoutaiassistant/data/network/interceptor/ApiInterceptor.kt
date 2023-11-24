@@ -1,4 +1,4 @@
-package com.example.workoutaiassistant.data.network
+package com.example.workoutaiassistant.data.network.interceptor
 
 import com.example.workoutaiassistant.BuildConfig
 import okhttp3.Interceptor
