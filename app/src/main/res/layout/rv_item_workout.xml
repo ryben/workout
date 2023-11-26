@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="12dp">
 
     <TextView
         android:id="@+id/rv_item_text_workout"
@@ -11,10 +12,28 @@
         android:layout_height="48dp"
         android:gravity="center_vertical"
         android:textAlignment="center"
+        android:textSize="18dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="RtlCompat"
         tools:text="Push ups" />
+
+    <TextView
+        android:id="@+id/rv_item_text_sets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sets:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_text_workout" />
+
+    <TextView
+        android:id="@+id/rv_item_text_reps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Repetitions: "
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rv_item_text_sets" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
