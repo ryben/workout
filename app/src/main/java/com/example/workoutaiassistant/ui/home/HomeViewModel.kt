@@ -16,11 +16,6 @@ import retrofit2.Response
 
 class HomeViewModel : ViewModel() {
 
-    private val _textDay = MutableLiveData<String>().apply {
-        value = "<  Today  >"
-    }
-    val textDay: LiveData<String> = _textDay
-
     private val _conversation = MutableLiveData<Conversation>().apply {
         value = Conversation(
             mutableListOf()
@@ -85,6 +80,4 @@ class HomeViewModel : ViewModel() {
 
         return responseLiveData
     }
-
-
 }

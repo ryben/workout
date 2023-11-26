@@ -55,9 +55,7 @@ class RvChatAdapter(private val chats: List<Chat>) : RecyclerView.Adapter<ViewHo
             is RvChatHimViewHolder -> holder.bind(chats.get(position))
         }
     }
-
 }
-
 
 class RvChatYouViewHolder(itemView: View) : ViewHolder(itemView) {
     private val textChat = itemView.findViewById<TextView>(R.id.text_chat)
