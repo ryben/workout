@@ -5,15 +5,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.transition.TransitionManager
 import com.example.workoutaiassistant.R
 import com.example.workoutaiassistant.data.network.AiResponse
 import com.example.workoutaiassistant.data.network.Role
 import com.example.workoutaiassistant.databinding.FragmentHomeBinding
 import com.example.workoutaiassistant.util.Util
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 
 class HomeFragment : Fragment() {
 
@@ -49,17 +50,47 @@ class HomeFragment : Fragment() {
             }
         }
 
-        binding.btnExpand.setOnClickListener {
-            // TODO("Expand or collapse chat interface")
+        binding.btnExpandCollapse.text = "^" // TODO: Change to expand icon
+        binding.btnExpandCollapse.setOnClickListener {
+            expandOrCollapseChatInterface()
         }
 
         return binding.root
     }
 
+    private fun expandOrCollapseChatInterface() {
+        val constraintSet = ConstraintSet()
+        val isExpanded = binding.chatInterface.top == 0 // Check if it's already expanded
+
+        constraintSet.clone(binding.constraintLayout)
+
+        if (isExpanded) {
+            // Reset to initial constraints
+            constraintSet.clear(
+                R.id.chat_interface,
+                ConstraintSet.TOP
+            )
+            binding.btnExpandCollapse.text = "^"
+        } else {
+            // Change to expanded constraints
+            constraintSet.connect(
+                R.id.chat_interface,
+                ConstraintSet.TOP,
+                ConstraintSet.PARENT_ID,
+                ConstraintSet.TOP,
+                0
+            )
+            binding.btnExpandCollapse.text = "v"  // TODO: Change to collapse icon
+        }
+
+        TransitionManager.beginDelayedTransition(binding.constraintLayout)
+        constraintSet.applyTo(binding.constraintLayout)
+    }
+
     private fun handleAiResponse(aiResponse: AiResponse) {
         // Parse expected json response message
         val responseMsg = aiResponse.choices[0].message.content
-        var contentResponse: ContentResponse
+        val contentResponse: ContentResponse
 
         try {
             contentResponse = Util.toContentResponseJson(responseMsg)

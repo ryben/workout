@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/constraint_layout"
     tools:context=".ui.home.HomeFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,18 +16,19 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/bottom_sheet"
+        android:id="@+id/chat_interface"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#EFEFEF"
-        tools:layout_behavior="">
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:minHeight="200dp"
+        android:background="#EFEFEF">
 
         <Button
-            android:id="@+id/btn_expand"
+            android:id="@+id/btn_expand_collapse"
             android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="^"
+            tools:text="^"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/rv_chat" />
 
