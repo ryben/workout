@@ -49,6 +49,10 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.btnExpand.setOnClickListener {
+            // TODO("Expand or collapse chat interface")
+        }
+
         return binding.root
     }
 
@@ -78,24 +82,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet)
-
-        // Configure the initial and expanded states
-        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-        bottomSheetBehavior.peekHeight = 200 // Set your desired peek height
-
-        // Optional: Listen for state changes
-        bottomSheetBehavior.addBottomSheetCallback(object :
-            BottomSheetBehavior.BottomSheetCallback() {
-            override fun onStateChanged(bottomSheet: View, newState: Int) {
-                // React to state change
-            }
-
-            override fun onSlide(bottomSheet: View, slideOffset: Float) {
-                // React to sliding
-            }
-        })
 
         // Provide initial instructions
         homeViewModel.sendSystemMessage(

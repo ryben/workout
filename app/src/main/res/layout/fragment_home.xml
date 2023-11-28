@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,7 +10,8 @@
         android:id="@+id/rv_workouts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,9 +19,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#EFEFEF"
-        tools:visibility="gone"
-        tools:layout_behavior=""
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        tools:layout_behavior="">
+
+        <Button
+            android:id="@+id/btn_expand"
+            android:layout_width="48dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="^"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/rv_chat" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chat"
@@ -59,4 +67,5 @@
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
