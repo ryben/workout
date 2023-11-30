@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.workoutaiassistant.databinding.RvItemWorkoutBinding
 
-class RvWorkoutAdapter(var workouts: List<Workout> = emptyList()) : RecyclerView.Adapter<RvWorkoutItemViewHolder>() {
+class RvWorkoutAdapter(private var workouts: List<Workout> = emptyList()) : RecyclerView.Adapter<RvWorkoutItemViewHolder>() {
     fun setData(workouts: List<Workout>) {
         this.workouts = workouts
-        notifyDataSetChanged()
+        notifyDataSetChanged() // TODO("Optimize")
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RvWorkoutItemViewHolder {
@@ -30,7 +30,7 @@ class RvWorkoutAdapter(var workouts: List<Workout> = emptyList()) : RecyclerView
 class RvWorkoutItemViewHolder(private val binding: RvItemWorkoutBinding) : ViewHolder(binding.root) {
     fun bind(workout: Workout) {
         binding.rvItemTextWorkout.text = workout.name
-        binding.rvItemTextReps.text = workout.repetitions.toString()
-        binding.rvItemTextSets.text = workout.sets.toString()
+        binding.rvItemTextReps.text = "${workout.repetitions} repetitions"
+        binding.rvItemTextSets.text = "${workout.sets} sets"
     }
 }

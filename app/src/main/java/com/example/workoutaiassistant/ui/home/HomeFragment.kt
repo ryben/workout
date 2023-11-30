@@ -38,6 +38,9 @@ class HomeFragment : Fragment() {
         homeViewModel.conversation.observe(viewLifecycleOwner) {
             rvChat.adapter =
                 RvChatAdapter(it.chats.filter { chat -> chat.role == Role.USER || chat.role == Role.ASSISTANT })
+            rvChat.adapter?.itemCount?.let {it2 ->
+                rvChat.smoothScrollToPosition(it2)
+            }
         }
 
         binding.btnSend.setOnClickListener {
@@ -108,7 +111,6 @@ class HomeFragment : Fragment() {
             )
         }
 
-        rvChat.smoothScrollToPosition((rvChat.adapter?.itemCount ?: 0) - 1)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
